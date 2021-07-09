@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+    <center class = "m-4">
+        <h2>URL: "{{ obj.original_url }}"</h2>
+        <!-- <h6>Your Request: "{{ obj.short_url }}"</h6> -->
+        <a href="{{ obj.original_url }}"><button type="button" class="btn btn-dark mt-3" style = "width:200px">Go To Website</button></a>
+    </center>
+{% endblock content %}
