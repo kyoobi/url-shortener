@@ -5,7 +5,9 @@
     <form method="POST" action="/create/">
         {% csrf_token %}
         {{ form.as_p }}
-        <center><button type="submit" class="btn btn-success mt-3">Create URL</button></center>
+        <div class="text-center">
+            <button type="submit" class="btn btn-success mt-3">Create URL</button>
+        </div>
     </form>
 </div>
 {% endblock content %}

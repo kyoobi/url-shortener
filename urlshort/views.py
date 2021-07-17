@@ -3,7 +3,7 @@ from django.http.request import HttpRequest
 from django.http.response import HttpResponse
 from django.shortcuts import render, redirect
 from .models import ShortURL
-from .forms import CreateNewShortURL
+from .forms import CreateNewShortURL, CustomUserCreationForm
 from datetime import date, datetime
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
@@ -24,12 +24,12 @@ def dashboard(request):
 
 def register(request):
     if request.method == "POST":
-        form = UserCreationForm(request.POST)
+        form = CustomUserCreationForm(request.POST)
         if form.is_valid():
             form.save()
             return redirect("signin")
     else:
-        form = UserCreationForm()
+        form = CustomUserCreationForm()
     
     return render(request, "register.html", {"form": form})
 
@@ -62,33 +62,36 @@ def signout(request):
     return redirect("home")
 
 
-@login_required
 def createShortURL(request):
-    if request.method == "POST":
-        form = CreateNewShortURL(request.POST)
-        if form.is_valid():
-            original_website = form.cleaned_data["original_url"]
-            random_chars_list = list(string.ascii_letters)
-            random_chars = ""
-            for i in range(6):
-                random_chars += random.choice(random_chars_list)
-            while len(ShortURL.objects.filter(short_url=random_chars)) != 0:
+    if request.user.is_authenticated:
+        if request.method == "POST":
+            form = CreateNewShortURL(request.POST)
+            if form.is_valid():
+                original_website = form.cleaned_data["original_url"]
+                random_chars_list = list(string.ascii_letters)
+                random_chars = ""
                 for i in range(6):
                     random_chars += random.choice(random_chars_list)
-            d = datetime.now()
-            s = ShortURL(
-                original_url=original_website,
-                short_url=random_chars,
-                time_date_created=d,
-            )
-            s.save()
-            return render(request, "urlcreated.html", {"chars": random_chars})
+                while len(ShortURL.objects.filter(short_url=random_chars)) != 0:
+                    for i in range(6):
+                        random_chars += random.choice(random_chars_list)
+                d = datetime.now()
+                s = ShortURL(
+                    original_url=original_website,
+                    short_url=random_chars,
+                    time_date_created=d,
+                )
+                s.save()
+                return render(request, "urlcreated.html", {"chars": random_chars})
+            else:
+                return render(request, "home.html")
         else:
-            return render(request, "home.html")
-    else:
-        form = CreateNewShortURL()
-        context = {"form": form}
-        return render(request, "create.html", context)
+            form = CreateNewShortURL()
+            context = {"form": form}
+            return render(request, "create.html", context)
+    
+    return redirect("signin")
+
 
 
 def redirectURL(request, url):

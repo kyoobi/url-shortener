@@ -1,9 +1,26 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <form action="/register/" method="POST" class="form-group">
+    <form action="/register/" method="POST" class="form-group text-center">
         {% csrf_token %}
-        {{form}}
-        <button class="btn btn-lg btn-primary" type="submit">Sign Up</button>
+        <div class = "mt-4">
+            <div class="form-floating m-2">
+                <div><label for="floatingInput">Username</label></div>
+                <div class="as">{{form.username}}</div>
+            </div>
+            <div class="form-floating m-2">
+                <div><label for="floatingPassword">Password</label></div>
+                <div>{{form.password1}}</div>
+            </div>
+
+            <div class="form-floating m-2">
+                <div><label for="floatingPassword">Confirm Password</label></div>
+                <div>{{form.password2}}</div>
+            </div>
+
+            <div class = "mt-4">
+                <button class="btn btn-lg btn-primary" type="submit">Sign Up</button>
+            </div>
+        </div>
    </form>
 {% endblock content %}
