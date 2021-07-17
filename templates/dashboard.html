@@ -13,18 +13,25 @@
                 </div>
             {% endif %}
         </div>
-        <div>
+        <div class="container ">
             {% for link in links_list%}
-                <form action="/dashboard/" method="POST" class="form-group text-center">
-                        {% csrf_token %}
-                        <input type="link" id = "link" name="link" class="form-floating w-20 inline" value="{{link}}">           
-                        <input type="shortlink" id = "shortlink" name="shortlink" class="form-floating w-20 inline" value="{{link.short_url}}" readonly>
-                        <button class="btn btn btn-primary inline" type="submit">Edit</button>
-                </form>
-                <form action="/dashboard/" method="DELETE" class="form-group text-center inline">
-                    {% csrf_token %}
-                    <button class="btn btn btn-danger inline" type="submit">Delete</button>
-                </form>
+                <div class="row text-center m-1">
+                    <div class="col-12">
+                        <form action="/dashboard/" method="POST" class="d-inline text-center">
+                                {% csrf_token %}
+                                <input type="link"  name="link" class="form-floating w-20 inline" value="{{link}}">           
+                                <input type="link"  name="shortlink" class="form-floating w-20 inline" value="{{link.short_url}}" readonly>
+                                <button class="btn btn btn-primary inline" type="submit">Edit</button>
+                        </form>
+                        
+                        <form action="/deleteURL/" method="POST" class="d-inline text-center">
+                            {% csrf_token %}
+                            <input type="hidden" name="link" class="form-floating w-20 inline" value="{{link}}">           
+                            <input type="hidden" name="shortlink" class="form-floating w-20 inline" value="{{link.short_url}}" readonly>
+                            <button class="btn btn btn-danger inline" type="submit">Delete</button>
+                        </form>
+                    </div>
+                </div>
             {% endfor %}
         </div>
     </div>

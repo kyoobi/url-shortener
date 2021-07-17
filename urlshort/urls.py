@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import dashboard, home, createShortURL, redirectURL, register, signin, signout
+from .views import dashboard, home, createShortURL, redirectURL, register, signin, signout, deleteURL
 
 urlpatterns = [
     path("", home, name="home"),
@@ -8,5 +8,6 @@ urlpatterns = [
     path("signin/", signin, name="signin"),
     path("signout/", signout, name="signout"),
     path("dashboard/", dashboard, name="dashboard"),
+    path("deleteURL/", deleteURL, name="deleteURL"),
     path("<str:url>", redirectURL, name="redirectURL"),
 ]
