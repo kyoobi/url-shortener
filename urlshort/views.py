@@ -22,6 +22,9 @@ def dashboard(request):
     if request.method == "POST":
         ShortURL.objects.filter(short_url=request.POST["shortlink"]).update(original_url = request.POST["link"])
         messages.info(request, 'Your link has been edited successfully!')
+    elif request.method == "DELETE":
+        print("DELETE")
+        ShortURL.objects.filter(short_url=request.POST["shortlink"]).delete()
     links_list = ShortURL.objects.filter(user = request.user)
     # print(request.user)
     # print(links_list[0])
