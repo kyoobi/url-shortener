@@ -9,7 +9,7 @@ from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.decorators import login_required
 import random, string
-
+from django.contrib import messages
 # Create your views here.
 
 
@@ -19,7 +19,13 @@ def home(request):
 
 @login_required
 def dashboard(request):
-    return render(request, "dashboard.html")
+    if request.method == "POST":
+        ShortURL.objects.filter(short_url=request.POST["shortlink"]).update(original_url = request.POST["link"])
+        messages.info(request, 'Your link has been edited successfully!')
+    links_list = ShortURL.objects.filter(user = request.user)
+    # print(request.user)
+    # print(links_list[0])
+    return render(request, "dashboard.html", {'links_list':links_list})
 
 
 def register(request):
@@ -80,6 +86,7 @@ def createShortURL(request):
                     original_url=original_website,
                     short_url=random_chars,
                     time_date_created=d,
+                    user = request.user
                 )
                 s.save()
                 return render(request, "urlcreated.html", {"chars": random_chars})
