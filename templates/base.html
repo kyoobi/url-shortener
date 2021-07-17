@@ -41,6 +41,11 @@
                 <span>
                     <a href="/"><button type="button" class="btn btn-success" >Home</button></a> 
                     <a href="/create/"><button type="button" class="btn btn-dark">Create New URL</button></a>
+                    {% if request.user.is_authenticated %}
+                    <a href="/signout/"><button type="button" class="btn btn-dark">SignOut</button></a>
+                    {% else %}
+                    <a href="/signin/"><button type="button" class="btn btn-dark">SignIn</button></a>
+                    {% endif %}
                 </span>
             </nav>
             <div class="pt-5">
