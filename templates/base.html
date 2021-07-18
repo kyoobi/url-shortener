@@ -4,9 +4,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="shortcut icon" href="https://ik.imagekit.io/kkwkkhna0xe/fox_7wKWMEpsI.png"
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Zen+Tokyo+Zoo&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@800&family=Pacifico&display=swap" rel="stylesheet">
+    <link rel="shortcut icon" href="https://ik.imagekit.io/kkwkkhna0xe/url_MrZcIHisj.png"
         type="image/x-icon">
-    <title>Url Shortener</title>
+    <title>Shortly</title>
 
     <style>
         #page-container {
@@ -29,36 +34,37 @@
     </style>
 </head>
 
-<body>
+<body style="font-family: 'Montserrat', sans-serif;>
     <div id="page-container">
         <div id="content-wrap">
             <nav class="navbar navbar-light">
                 <a class="navbar-brand" href="/">
-                    <img src="https://ik.imagekit.io/kkwkkhna0xe/fox_7wKWMEpsI.png" width="60"
-                        height="60" alt="" loading="lazy">
-                    <b class = "p-3">URLShort</b>
+                    <!-- <img src="https://ik.imagekit.io/kkwkkhna0xe/fox_7wKWMEpsI.png" width="60"
+                        height="60" alt="" loading="lazy"> -->
+                    <b class = "p-3" style = "color:#2F3C7E; font-family: 'Pacifico', cursive; font-size: 35px;">Shortly</b>
                 </a>
                 <span>
                     <!-- <a href="/"><button type="button" class="btn btn-success" >Home</button></a>  -->
-                    <a href="/create/"><button type="button" class="btn btn-success">Create New URL</button></a>
+                    <!-- <a href="/create/"><button type="button" class="btn btn-success">Create +</button></a> -->
                     {% if request.user.is_authenticated %}
-                    <a href="/signout/"><button type="button" class="btn btn-dark">SignOut</button></a>
                     <a href="/dashboard/"><button type="button" class="btn btn-dark">Dashboard</button></a>
+                    <a href="/signout/"><button type="button" class="btn btn-dark">Logout</button></a>
                     {% else %}
-                    <a href="/signin/"><button type="button" class="btn btn-dark">SignIn</button></a>
+                    <a href="/signin/"><button type="button" class="btn btn-dark">Login</button></a>
                     {% endif %}
                 </span>
             </nav>
             <div class="pt-5 text-center">
-                    <img src="https://ik.imagekit.io/kkwkkhna0xe/Short_URL_4-y46kkj8.png" width="200"></a>
+                    <!-- <img src="https://ik.imagekit.io/kkwkkhna0xe/Short_URL_4-y46kkj8.png" width="200"></a> -->
             </div>
             {% block content %}
 
             {% endblock content %}
         </div>
     </div>
-
-
+    <a href="/create/"><span style = "position: fixed; bottom: 50px; right: 50px; " class="rounded-circle"> <img src="https://ik.imagekit.io/kkwkkhna0xe/plus_6rlPL2rB9.png" style="width:50px;"></span></a>
+   
+    
     <!-- Bootstrap -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
         integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">

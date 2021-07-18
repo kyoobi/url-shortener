@@ -19,6 +19,7 @@ def home(request):
 @login_required
 def deleteURL(request):
     ShortURL.objects.filter(short_url=request.POST["shortlink"]).delete()
+    messages.info(request, 'Your link has been deleted successfully!')
     return redirect("dashboard")
 
 @login_required

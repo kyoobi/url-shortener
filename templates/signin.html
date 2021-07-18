@@ -1,21 +1,27 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <form action="/signin/" method="POST" class="form-group text-center">
-        {% csrf_token %}
-        <div class = "mt-4">
-            <div class="form-floating m-2">
-                <div><label for="floatingInput">Username</label></div>
-                <div class="as">{{form.username}}</div>
+<div class="container">
+    <div class="row">
+        <div class="col  align-self-center " style="width:fit-content">
+            <form action="/signin/" method="POST" class="form-group text-center">
+                {% csrf_token %}
+                <div class = "mt-4">
+                    <div class="form-floating m-2">
+                        <div><label for="floatingInput">Username</label></div>
+                        <div class="as">{{form.username}}</div>
+                    </div>
+                    <div class="form-floating m-2">
+                        <div><label for="floatingPassword">Password</label></div>
+                        <div>{{form.password}}</div>
+                    </div>
+                    <button class="btn btn btn-primary mt-4" type="submit">Sign in</button>
+                </div>
+            </form>
+            <div class="text-center">
+                <a href="/register/"><span class="gray-link">Don't have an account?</span></a>
             </div>
-            <div class="form-floating m-2">
-                <div><label for="floatingPassword">Password</label></div>
-                <div>{{form.password}}</div>
-            </div>
-            <button class="btn btn-lg btn-primary mt-4" type="submit">Sign in</button>
         </div>
-    </form>
-    <div class="text-center">
-        <a href="/register/"><span class="gray-link">Don't have an account?</span></a>
     </div>
+</div>
 {% endblock content %}
