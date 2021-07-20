@@ -10,28 +10,32 @@ from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.decorators import login_required
 import random, string
 from django.contrib import messages
+
 # Create your views here.
 
 
 def home(request):
     return render(request, "home.html")
 
+
 @login_required
 def deleteURL(request):
     ShortURL.objects.filter(short_url=request.POST["shortlink"]).delete()
-    messages.info(request, 'Your link has been deleted successfully!')
+    messages.info(request, "Your link has been deleted successfully!")
     return redirect("dashboard")
+
 
 @login_required
 def dashboard(request):
     if request.method == "POST":
-        ShortURL.objects.filter(short_url=request.POST["shortlink"]).update(original_url = request.POST["link"])
-        messages.info(request, 'Your link has been edited successfully!')
-        
-    links_list = ShortURL.objects.filter(user = request.user)
-    # print(request.user)
-    # print(links_list[0])
-    return render(request, "dashboard.html", {'links_list':links_list})
+        ShortURL.objects.filter(short_url=request.POST["shortlink"]).update(
+            original_url=request.POST["link"]
+        )
+        messages.info(request, "Your link has been edited successfully!")
+
+    links_list = ShortURL.objects.filter(user=request.user)
+
+    return render(request, "dashboard.html", {"links_list": links_list})
 
 
 def register(request):
@@ -42,7 +46,7 @@ def register(request):
             return redirect("signin")
     else:
         form = CustomUserCreationForm()
-    
+
     return render(request, "register.html", {"form": form})
 
 
@@ -68,7 +72,6 @@ def signin(request):
     return render(request, "signin.html", {"form": form})
 
 
-
 def signout(request):
     logout(request)
     return redirect("home")
@@ -92,7 +95,7 @@ def createShortURL(request):
                     original_url=original_website,
                     short_url=random_chars,
                     time_date_created=d,
-                    user = request.user
+                    user=request.user,
                 )
                 s.save()
                 return render(request, "urlcreated.html", {"chars": random_chars})
@@ -102,9 +105,8 @@ def createShortURL(request):
             form = CreateNewShortURL()
             context = {"form": form}
             return render(request, "create.html", context)
-    
-    return redirect("signin")
 
+    return redirect("signin")
 
 
 def redirectURL(request, url):
@@ -112,5 +114,6 @@ def redirectURL(request, url):
     print(request)
     if len(current_obj) == 0:
         return render(request, "pagenotfound.html")
+
     context = {"obj": current_obj[0]}
     return render(request, "redirect.html", context)

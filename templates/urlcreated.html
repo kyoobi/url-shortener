@@ -1,10 +1,18 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<center>
+<div class="text-center">
     <h1 class="text-weight-bold mt-5">Minified !</h1>
-    <div class="alert alert-primary mt-3" role="alert">
-        <h1 class="text-weight-bold">shortlee.herokuapp.com/{{ chars }}</h1>
+    <div class="mt-5">
+        <div class="mt-3 w-50 mx-auto rounded p-2" style="background-color: #546e7a;">
+            <h1 style="color: #FFFFFF;">shortee.me/{{ chars }}</h1>
+        </div>
+        <div class="mt-3 w-50 mx-auto rounded p-2" style="background-color: #546e7a;">
+            <h1 style="color: #FFFFFF;">shortlee.herokuapp.com/{{ chars }}</h1>
+        </div>
+        <div class="mt-3 w-50 mx-auto rounded p-2" style="background-color: #546e7a;">
+            <h1 style="color: #FFFFFF;">kyoobi.github.io/{{ chars }}</h1>
+        </div>
     </div>
-</center>
+</div>
 {% endblock content %}
