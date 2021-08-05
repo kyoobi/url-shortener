@@ -18,6 +18,15 @@
                     <button class="btn btn btn-primary mt-4" type="submit">Sign in</button>
                 </div>
             </form>
+            <div>
+                {% if messages %}
+                    <div class="text-center">
+                        {% for message in messages %}
+                            <p {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</p>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
             <div class="text-center">
                 <a href="/register/"><span class="gray-link">Don't have an account?</span></a>
             </div>

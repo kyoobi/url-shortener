@@ -10,6 +10,7 @@ from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.decorators import login_required
 import random, string
 from django.contrib import messages
+from django.contrib.auth.models import User
 
 # Create your views here.
 
@@ -44,6 +45,13 @@ def register(request):
         if form.is_valid():
             form.save()
             return redirect("signin")
+        else:
+            username = request.POST["username"]
+            if User.objects.filter(username=username).exists():
+                messages.info(request, "Username already exists !")
+                return redirect("register")
+            messages.info(request, "Weak Password !")
+            return redirect("register")
     else:
         form = CustomUserCreationForm()
 
@@ -65,7 +73,8 @@ def signin(request):
             login(request, user)
             return redirect("dashboard")
 
-        return HttpResponse(status=403)
+        messages.info(request, "INVALID DETAILS !")
+        return redirect("signin")
 
     else:
         form = AuthenticationForm()
@@ -100,7 +109,8 @@ def createShortURL(request):
                 s.save()
                 return render(request, "urlcreated.html", {"chars": random_chars})
             else:
-                return render(request, "home.html")
+                messages.info(request, "INVALID URL!")
+                return redirect("create")
         else:
             form = CreateNewShortURL()
             context = {"form": form}
